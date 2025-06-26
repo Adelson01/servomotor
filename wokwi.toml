@@ -1,0 +1,4 @@
+[wokwi]
+version = 1
+elf = "build/servomotor.elf"
+firmware = "build/servomotor.uf2"
