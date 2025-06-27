@@ -151,8 +151,7 @@ int main() {
         sleep_ms(20);
     }
 }
-
-
+'''
 
 
 ## 🧠 Detalhes do Código
