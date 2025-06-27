@@ -5,7 +5,7 @@ Este projeto demonstra como controlar a posição de um servo motor utilizando u
 Este código foi desenvolvido para ser utilizado com o simulador online Wokwi.
 
 
-  - #EXPLICAÇÃO EM VIDEO:
+  - # EXPLICAÇÃO EM VIDEO:
  
   - https://drive.google.com/file/d/1hjdcwgTi135D106GEH4ZH2NnuTpdUj1l/view?usp=drive_link
 
