@@ -71,8 +71,6 @@ O código-fonte (`main.c`) é estruturado para inicializar os periféricos do Pi
 ### Código:
 
 
-
-
 C
 
 #include <stdio.h>
