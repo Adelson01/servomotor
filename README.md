@@ -4,6 +4,11 @@ Este projeto demonstra como controlar a posição de um servo motor utilizando u
 
 Este código foi desenvolvido para ser utilizado com o simulador online Wokwi.
 
+
+  - #EXPLICAÇÃO EM VIDEO:
+ 
+  - https://drive.google.com/file/d/1hjdcwgTi135D106GEH4ZH2NnuTpdUj1l/view?usp=drive_link
+
 ---
 
 ## 🧑‍🤝‍🧑 Equipe e Contribuições
@@ -166,3 +171,4 @@ int main() {
   - **Inicialização**: Prepara o ADC e o pino GPIO para a função PWM.
   - **Controle de Tempo de Impressão**: Uma lógica simples usando `to_ms_since_boot` garante que os valores de debug (ADC e Pulso) sejam impressos no monitor serial apenas uma vez por segundo, tornando a saída legível.
   - **Loop Principal**: Lê o ADC, mapeia o valor, atualiza o servo e faz uma pequena pausa (`sleep_ms(20)`). Essa pausa é importante para sincronizar o loop com o período do sinal do servo (20 ms), otimizando o uso do processador.
+ 
