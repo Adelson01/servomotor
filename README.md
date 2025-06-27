@@ -152,6 +152,9 @@ int main() {
     }
 }
 
+
+
+
 ## 🧠 Detalhes do Código
 
 - `#define`: Constantes são usadas para facilitar a leitura e a modificação dos pinos e parâmetros do servo.
