@@ -1,81 +1,74 @@
-Controle de Servo Motor com Joystick no Raspberry Pi Pico
+# Controle de Servo Motor com Joystick no Raspberry Pi Pico
+
 Este projeto demonstra como controlar a posição de um servo motor utilizando um joystick analógico conectado a um Raspberry Pi Pico. O programa lê a posição do eixo X do joystick através de um conversor analógico-digital (ADC) e converte esse valor em um sinal de modulação por largura de pulso (PWM) para comandar o servo.
 
 Este código foi desenvolvido para ser utilizado com o simulador online Wokwi.
 
-Equipe e Contribuições
+---
+
+## 🧑‍🤝‍🧑 Equipe e Contribuições
+
 Este projeto foi uma colaboração dos seguintes membros:
 
-Danielle: Responsável pela pesquisa e implementação da configuração do PWM (Modulação por Largura de Pulso) para o controle preciso do servo motor.
+- **Danielle**: Responsável pela pesquisa e implementação da configuração do PWM (Modulação por Largura de Pulso) para o controle preciso do servo motor.
 
-Guilherme: Responsável pela configuração do Conversor Analógico-Digital (ADC), permitindo a leitura correta dos dados do joystick.
+- **Guilherme**: Responsável pela configuração do Conversor Analógico-Digital (ADC), permitindo a leitura correta dos dados do joystick.
 
-Adelson: Responsável pela integração do código do ADC com o PWM, criando a lógica principal do programa e unindo as partes para o funcionamento completo do sistema.
+- **Adelson**: Responsável pela integração do código do ADC com o PWM, criando a lógica principal do programa e unindo as partes para o funcionamento completo do sistema.
 
-Componentes Utilizados
-Raspberry Pi Pico W
+---
 
-Servo Motor (padrão, como o SG90)
+## 🧰 Componentes Utilizados
 
-Módulo de Joystick Analógico
+- Raspberry Pi Pico W  
+- Servo Motor (padrão, como o SG90)  
+- Módulo de Joystick Analógico  
 
-Montagem do Circuito
+---
+
+## 🔌 Montagem do Circuito
+
 A conexão entre os componentes foi realizada da seguinte forma:
 
-Componente
+| Componente   | Pino         | Conexão no Raspberry Pi Pico |
+|--------------|--------------|------------------------------|
+| Joystick     | GND          | GND                          |
+|              | VCC          | 3V3                          |
+|              | HORZ (Eixo X)| GP27 (ADC1)                  |
+| Servo Motor  | GND (marrom) | GND                          |
+|              | V+ (vermelho)| VBUS                         |
+|              | PWM (laranja)| GP20                         |
 
-Pino
+---
 
-Conexão no Raspberry Pi Pico
+## 💡 Lógica do Projeto
 
-Joystick
-
-GND
-
-GND
-
-VCC
-
-3V3
-
-HORZ (Eixo X)
-
-GP27 (ADC1)
-
-Servo Motor
-
-GND (fio marrom)
-
-GND
-
-V+ (fio vermelho)
-
-VBUS
-
-PWM (fio laranja)
-
-GP20
-
-
-Exportar para as Planilhas
-Lógica do Projeto
 O objetivo do projeto é traduzir o movimento físico do joystick em um movimento angular correspondente no servo motor. A lógica para isso segue os seguintes passos:
 
-Leitura Analógica: O Raspberry Pi Pico utiliza seu Conversor Analógico-Digital (ADC) para ler a tensão no pino GP27, que está conectado ao eixo horizontal (HORZ) do joystick. Essa leitura resulta em um valor digital entre 0 (posição mínima) e 4095 (posição máxima).
+1. **Leitura Analógica**:  
+   O Raspberry Pi Pico utiliza seu Conversor Analógico-Digital (ADC) para ler a tensão no pino GP27, que está conectado ao eixo horizontal (HORZ) do joystick. Essa leitura resulta em um valor digital entre 0 (posição mínima) e 4095 (posição máxima).
 
-Mapeamento de Valores: O servo motor não entende a escala de 0 a 4095. Ele é controlado pela duração (largura) de um pulso elétrico, medido em microssegundos (µs), enviado a uma frequência de 50 Hz.
+2. **Mapeamento de Valores**:  
+   O servo motor não entende a escala de 0 a 4095. Ele é controlado pela duração (largura) de um pulso elétrico, medido em microssegundos (µs), enviado a uma frequência de 50 Hz.
 
-Um pulso de ~500 µs corresponde à posição de 0 graus.
+   - Um pulso de ~500 µs corresponde à posição de 0 graus.  
+   - Um pulso de ~2400 µs corresponde à posição de 180 graus.
 
-Um pulso de ~2400 µs corresponde à posição de 180 graus.
-A função map() é usada para converter (mapear) a faixa de valores do ADC (0 - 4095) para a faixa de largura de pulso do servo (500 - 2400 µs).
+   A função `map()` é usada para converter (mapear) a faixa de valores do ADC (0 - 4095) para a faixa de largura de pulso do servo (500 - 2400 µs).
 
-Geração de PWM: Com base no valor de pulso calculado, o Pico gera um sinal PWM no pino GP20. Este sinal tem uma frequência constante de 50 Hz, mas sua largura de pulso varia conforme o joystick é movido. Essa variação na largura do pulso comanda o servo motor a se mover para a posição desejada.
+3. **Geração de PWM**:  
+   Com base no valor de pulso calculado, o Pico gera um sinal PWM no pino GP20. Este sinal tem uma frequência constante de 50 Hz, mas sua largura de pulso varia conforme o joystick é movido. Essa variação na largura do pulso comanda o servo motor a se mover para a posição desejada.
 
-Loop Contínuo: Todo o processo ocorre dentro de um loop infinito (while (true)), garantindo que o servo reaja em tempo real ao movimento do joystick.
+4. **Loop Contínuo**:  
+   Todo o processo ocorre dentro de um loop infinito (`while (true)`), garantindo que o servo reaja em tempo real ao movimento do joystick.
 
-Análise do Código
-O código-fonte (main.c) é estruturado para inicializar os periféricos do Pico e executar a lógica de controle em um loop.
+---
+
+## 🔍 Análise do Código
+
+O código-fonte (`main.c`) é estruturado para inicializar os periféricos do Pico e executar a lógica de controle em um loop.
+
+### Código:
 
 C
 
@@ -161,17 +154,15 @@ int main() {
         sleep_ms(20);
     }
 }
-Detalhes do Código:
-#define: Constantes são usadas para facilitar a leitura e a modificação dos pinos e parâmetros do servo.
+## 🧠 Detalhes do Código
 
-map(): Função de utilidade que realiza a conversão matemática entre as faixas de valores do ADC e do PWM.
+- `#define`: Constantes são usadas para facilitar a leitura e a modificação dos pinos e parâmetros do servo.
 
-set_servo_pulse(): É o coração do controle do servo. Ela configura o periférico PWM do Pico (chamado de slice) com um divisor de clock e um valor de "wrap" para criar uma frequência de 50 Hz. Em seguida, ajusta o level do canal para definir a largura do pulso.
+- `map()`: Função de utilidade que realiza a conversão matemática entre as faixas de valores do ADC e do PWM.
 
-main():
+- `set_servo_pulse()`: É o coração do controle do servo. Ela configura o periférico PWM do Pico (chamado de *slice*) com um divisor de clock e um valor de "wrap" para criar uma frequência de 50 Hz. Em seguida, ajusta o *level* do canal para definir a largura do pulso.
 
-Inicialização: Prepara o ADC e o pino GPIO para a função PWM.
-
-Controle de Tempo de Impressão: Uma lógica simples usando to_ms_since_boot garante que os valores de debug (ADC e Pulso) sejam impressos no monitor serial apenas uma vez por segundo, tornando a saída legível.
-
-Loop Principal: Lê o ADC, mapeia o valor, atualiza o servo e faz uma pequena pausa (sleep_ms(20)). Essa pausa é importante para sincronizar o loop com o período do sinal do servo (20 ms), otimizando o uso do processador.
+- `main()`:
+  - **Inicialização**: Prepara o ADC e o pino GPIO para a função PWM.
+  - **Controle de Tempo de Impressão**: Uma lógica simples usando `to_ms_since_boot` garante que os valores de debug (ADC e Pulso) sejam impressos no monitor serial apenas uma vez por segundo, tornando a saída legível.
+  - **Loop Principal**: Lê o ADC, mapeia o valor, atualiza o servo e faz uma pequena pausa (`sleep_ms(20)`). Essa pausa é importante para sincronizar o loop com o período do sinal do servo (20 ms), otimizando o uso do processador.
