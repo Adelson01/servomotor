@@ -70,9 +70,7 @@ O código-fonte (`main.c`) é estruturado para inicializar os periféricos do Pi
 
 ### Código:
 
-
-C
-
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include "pico/stdlib.h"
@@ -116,7 +114,6 @@ void set_servo_pulse(uint gpio, uint16_t pulse_width_us) {
     pwm_set_enabled(slice_num, true);
 }
 
-
 int main() {
     // Inicializa a comunicação serial para debug
     stdio_init_all();
@@ -144,7 +141,6 @@ int main() {
         set_servo_pulse(SERVO_GPIO, pulse_width);
 
         // 4. LÓGICA PARA IMPRIMIR A CADA SEGUNDO
-        // Isso evita sobrecarregar o monitor serial com mensagens
         uint32_t current_time_ms = to_ms_since_boot(get_absolute_time());
         if (current_time_ms - last_print_time_ms >= print_interval_ms) {
             printf("ADC: %4d -> Pulso: %4d us\n", adc_x, pulse_width);
@@ -155,6 +151,7 @@ int main() {
         sleep_ms(20);
     }
 }
+
 ## 🧠 Detalhes do Código
 
 - `#define`: Constantes são usadas para facilitar a leitura e a modificação dos pinos e parâmetros do servo.
